@@ -12,7 +12,7 @@
             padding: 7px 12px;
             position: relative;
             outline: none;
-            display: inline-block;
+            display: block;
             text-shadow: 0 1px 0 #fff;
             -webkit-transition: border-color .218s;
             -moz-transition: border .218s;
@@ -28,6 +28,9 @@
 
 
 
+        }
+        .btn.hide {
+            display: none;
         }
         .btn-text {
             color: #191919;
@@ -164,6 +167,15 @@
         </div>
 
 </script>
+
+
+<script id="add_btn" type="text/x-handlebars-template">
+    <div class="btn" id="btn" onclick="add_click()">
+        <div class="btn-text">Add</div>
+    </div>
+</script>
+
+
 
 </body>
 </html>
