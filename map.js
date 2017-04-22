@@ -9,11 +9,121 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
         zoom: 7,
-        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true
 
     });
 
+    var test_context = {
+        id:"001",
+        years:[
+            {
+                title:"1990",
+                operations:[
+                    {
+                        type:"one",
+                        action: "true"
+                    },
+                    {
+                        type:"two",
+                        action: "false"
+                    },
+                    {
+                        type:"three",
+                        action: "true"
+                    },
+                    {
+                        type:"four",
+                        action: "true"
+                    }
+                ]
+            },
+            {
+                title:"1991",
+                operations:[
+                    {
+                        type:"one",
+                        action: "true"
+                    },
+                    {
+                        type:"two",
+                        action: "false"
+                    },
+                    {
+                        type:"three",
+                        action: "true"
+                    },
+                    {
+                        type:"four",
+                        action: "true"
+                    }
+                ]
+            },
+            {
+                title:"1992",
+                operations:[
+                    {
+                        type:"one",
+                        action: "true"
+                    },
+                    {
+                        type:"two",
+                        action: "false"
+                    },
+                    {
+                        type:"three",
+                        action: "true"
+                    },
+                    {
+                        type:"four",
+                        action: "true"
+                    }
+                ]
+            },
+            {
+                title:"1993",
+                operations:[
+                    {
+                        type:"one",
+                        action: "true"
+                    },
+                    {
+                        type:"two",
+                        action: "false"
+                    },
+                    {
+                        type:"three",
+                        action: "true"
+                    },
+                    {
+                        type:"four",
+                        action: "true"
+                    }
+                ]
+            },
+            {
+                title:"1994",
+                operations:[
+                    {
+                        type:"one",
+                        action: "true"
+                    },
+                    {
+                        type:"two",
+                        action: "false"
+                    },
+                    {
+                        type:"three",
+                        action: "true"
+                    },
+                    {
+                        type:"four",
+                        action: "true"
+                    }
+                ]
+            }
+        ]
+    };
     var centerControlDiv = document.createElement('div');
     var menudiv = document.createElement('div');
     menudiv.id = 'menu';
@@ -23,7 +133,7 @@ function initMap() {
     var source   = document.getElementById("info").innerHTML,
         template = Handlebars.compile(source),
         // context = {title: "My New Post", body: "This is my first post!"},
-        html    = template();
+        html    = template(test_context);
     menudiv.innerHTML = html;
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(menudiv);
 

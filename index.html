@@ -120,49 +120,17 @@
 
 <script id="info" type="text/x-handlebars-template">
         <div class="category-wrap">
-            <h3>Field 1</h3>
+            <h3>Field {{id}}</h3>
             <ul>
-                <li>1990
-                <ul >
-                    <li>Operation 1</li>
-                    <li>Operation 2</li>
-                    <li>Operation 3</li>
-                    <li>Operation 4</li>
-                </ul>
+                {{#each years}}
+                    <li>{{title}}
+                        <ul>
+                            {{#each operations}}
+                            <li>{{type}} <strong>{{action}}</strong> </li>
+                            {{/each}}
+                        </ul>
                     </li>
-                <li>1991
-                    <ul>
-                        <li>Operation 1</li>
-                        <li>Operation 2</li>
-                        <li>Operation 3</li>
-                        <li>Operation 4</li>
-                    </ul>
-                </li>
-                <li>1992
-                    <ul>
-                        <li>Operation 1</li>
-                        <li>Operation 2</li>
-                        <li>Operation 3</li>
-                        <li>Operation 4</li>
-                    </ul>
-                </li>
-                <li>1993
-                    <ul>
-                        <li>Operation 1</li>
-                        <li>Operation 2</li>
-                        <li>Operation 3</li>
-                        <li>Operation 4</li>
-                    </ul>
-                </li>
-                <li>1994
-                    <ul>
-                        <li>Operation 1</li>
-                        <li>Operation 2</li>
-                        <li>Operation 3</li>
-                        <li>Operation 4</li>
-                    </ul>
-                </li>
-
+                {{/each}}
             </ul>
         </div>
 
