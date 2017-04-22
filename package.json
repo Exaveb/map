@@ -1,0 +1,16 @@
+{
+  "name": "mapjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "build": "electron-packager . mapjs --platform=win32 --arch=x64 --version=1.6.2 --app-version=0.1.0 --out=dist --ignore=dist --prune"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron-prebuilt": "^1.4.13",
+    "handlebars": "^4.0.6"
+  }
+}
