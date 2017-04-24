@@ -102,6 +102,9 @@
         .category-wrap li:hover ul {
             display: block;
         }
+        .twobtn {
+            display: block;
+        }
     </style>
     <!link ref="stylesheet" type="text/css" href="style.css">
 </head>
@@ -138,10 +141,30 @@
 
 
 <script id="add_btn" type="text/x-handlebars-template">
-    <div class="btn" id="btn" onclick="add_click()">
+    <div class="btn" id="addbtn" onclick="add_click()">
         <div class="btn-text">Add</div>
     </div>
 </script>
+
+<script class="twobtn" id="two_btn" type="text/x-handlebars-template">
+    <div class="btn" id="ok_btn">
+        <div class="btn-text">OK</div>
+    </div>
+
+    <div class="btn" id="cancel_btn">
+        <div class="btn-text">Cancel</div>
+    </div>
+</script>
+
+<script id="inputform" type="text/x-handlebars-template">
+    <div class="category-wrap">
+
+    </div>
+
+</script>
+
+
+
 
 
 
