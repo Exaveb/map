@@ -123,7 +123,6 @@ function initMap() {
 
     });
 
-
     var add_btn = document.createElement('div');
     var output = document.createElement('div');
     output = createTemplate('outputform',test_context);
@@ -173,27 +172,23 @@ function add_click() {
             polygon = null;
             add_btn.style.display = "block";
             input.classList.remove('show');
-            changeTemplate('info',null,input);
-            document.getElementById('input-cancel').removeEventListener('click');
-            document.getElementById('input-ok').removeEventListener('click');
-
         });
 
         document.getElementById('input-ok').addEventListener('click',function() {
-           add_btn.style.display = "block";
-           input.classList.remove('show');
-           changeTemplate('outputform', test_context,input);
+            input.classList.remove('show');
+            add_btn.style.display = "block";
+
+
 
            google.maps.event.addListener(polygon, 'click', function () {
-
+               changeTemplate('outputform', test_context,document.getElementById('menu'));
                document.getElementById('menu').classList.add('show');
-               console.log(document.getElementById('menu').classList);
-
                document.getElementById('delete').addEventListener('click',function () {
                    polygon.setMap(null);
                    polygon = null;
                    input.classList.remove('show');
                });
+
                document.getElementById('edit').addEventListener('click',function () {
                    var menu =  document.getElementById('menu');
                    menu.classList.remove('show');
@@ -220,8 +215,7 @@ function add_click() {
                })
 
            });
-            document.getElementById('input-cancel').removeEventListener('click');
-            document.getElementById('input-ok').removeEventListener('click');
+
        });
     });
 }
