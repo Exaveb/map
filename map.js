@@ -124,37 +124,18 @@ function initMap() {
     });
 
 
-    var centerControlDiv = document.createElement('div');
-    var menudiv = document.createElement('div');
-    menudiv.id = 'menu';
-    menudiv.classList.add("menu");
-    menudiv.index = 1;
-    centerControlDiv.index = 1;
-    var source   = document.getElementById("info").innerHTML,
-        template = Handlebars.compile(source),
-        // context = {title: "My New Post", body: "This is my first post!"},
-        html    = template(test_context);
-    menudiv.innerHTML = html;
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(menudiv);
+    var add_btn = document.createElement('div');
+    var output = document.createElement('div');
+    output = createTemplate('outputform',test_context);
+    output.id = 'menu';
+    output.classList.add("menu");
+    output.index = 1;
+    add_btn.index = 1;
 
-    source = document.getElementById('add_btn').innerHTML;
-    template = Handlebars.compile(source);
-    html = template();
-    centerControlDiv.innerHTML = html;
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(centerControlDiv);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(output);
+    add_btn = createTemplate('add_btn',null);
 
-    var ok_can_div = document.createElement('div');
-    ok_can_div.id = 'ok_can_div';
-    source = document.getElementById('two_btn').innerHTML;
-    template = Handlebars.compile(source);
-    html = template();
-    ok_can_div.innerHTML = html;
-    map.controls[google.maps.ControlPosition.TOP_CENTER].push(ok_can_div);
-    ok_can_div.style.display = 'none';
-
-
-
-
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(add_btn);
 
     google.maps.event.addListener(map,'click',function () {
        document.getElementById('menu').classList.remove('show');
@@ -164,62 +145,104 @@ function initMap() {
 
 
 function add_click() {
-    var controlUI = document.getElementById('addbtn');
-    var ok_can_btn = document.getElementById('ok_can_div');
-    var ok = document.getElementById('ok_btn');
-    var cancel = document.getElementById('cancel_btn');
+    var add_btn = document.getElementById('addbtn');
+
 
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYGON,
         drawingControl: false,
 
     });
+
     drawingManager.setMap(map);
-    console.log(map.controls);
-    controlUI.style.display = "none";
-    ok_can_btn.style.display = 'block';
-    console.log(ok_can_btn);
+    add_btn.style.display = "none";
+
+
+
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
         console.log(polygon);
         drawingManager.setMap(null);
-        var menudiv = document.getElementById('menu');
-        var source   = document.getElementById("inputform").innerHTML,
-            template = Handlebars.compile(source),
-            html    = template();
-        menudiv.innerHTML = html;
-        menudiv.classList.add('show');
 
-        cancel.addEventListener('click',function(){
-                polygon.setMap(null);
-                polygon = null;
-            controlUI.style.display = "block";
-            ok_can_btn.style.display = 'none';
-            menudiv.classList.remove('show');
+        var input = document.getElementById('menu');
+        console.log(input);
+        changeTemplate('inputform',null, input);
+        input.classList.add('show');
 
-            var source   = document.getElementById("info").innerHTML,
-                template = Handlebars.compile(source),
-                // context = {title: "My New Post", body: "This is my first post!"},
-                html    = template(test_context);
-            menudiv.innerHTML = html;
+        document.getElementById('input-cancel').addEventListener('click',function() {
+            polygon.setMap(null);
+            polygon = null;
+            add_btn.style.display = "block";
+            input.classList.remove('show');
+            changeTemplate('info',null,input);
+            document.getElementById('input-cancel').removeEventListener('click');
+            document.getElementById('input-ok').removeEventListener('click');
+
         });
 
-       ok.addEventListener('click',function () {
-            controlUI.style.display = "block";
-            ok_can_btn.style.display = 'none';
-           menudiv.classList.remove('show');
+        document.getElementById('input-ok').addEventListener('click',function() {
+           add_btn.style.display = "block";
+           input.classList.remove('show');
+           changeTemplate('outputform', test_context,input);
 
-           var source   = document.getElementById("info").innerHTML,
-               template = Handlebars.compile(source),
-               // context = {title: "My New Post", body: "This is my first post!"},
-               html    = template(test_context);
-           menudiv.innerHTML = html;
+           google.maps.event.addListener(polygon, 'click', function () {
 
-            google.maps.event.addListener(polygon, 'click', function () {
-                document.getElementById('menu').classList.add('show');
-                console.log(document.getElementById('menu').classList);
-            })
+               document.getElementById('menu').classList.add('show');
+               console.log(document.getElementById('menu').classList);
 
-        })
+               document.getElementById('delete').addEventListener('click',function () {
+                   polygon.setMap(null);
+                   polygon = null;
+                   input.classList.remove('show');
+               });
+               document.getElementById('edit').addEventListener('click',function () {
+                   var menu =  document.getElementById('menu');
+                   menu.classList.remove('show');
+                   changeTemplate('editform',null,menu);
+                   menu.classList.add('show');
+
+                   document.getElementById('edit-ok').addEventListener('click',function () {
+                       menu.classList.remove('show');
+                       changeTemplate('outputform',test_context,menu);
+
+                       document.getElementById('edit-cancel').removeEventListener('click');
+                       document.getElementById('edit-ok').removeEventListener('click');
+                   });
+
+                   document.getElementById('edit-cancel').addEventListener('click',function () {
+                       menu.classList.remove('show');
+                       changeTemplate('outputform',test_context,menu);
+
+                       document.getElementById('edit-cancel').removeEventListener('click');
+                       document.getElementById('edit-ok').removeEventListener('click');
+
+                   });
+
+               })
+
+           });
+            document.getElementById('input-cancel').removeEventListener('click');
+            document.getElementById('input-ok').removeEventListener('click');
+       });
     });
 }
+
+function createTemplate(template,context) {
+    var div = document.createElement('div'),
+        source = document.getElementById(template).innerHTML,
+        html =context? Handlebars.compile(source)(context) :Handlebars.compile(source)() ;
+        div.innerHTML = html;
+        return div;
+
+}
+
+function changeTemplate(template,context,container) {
+    var source = document.getElementById(template).innerHTML,
+        html =context? Handlebars.compile(source)(context) :Handlebars.compile(source)() ;
+        container.innerHTML = html;
+        return container;
+}
+
+
+
+
 

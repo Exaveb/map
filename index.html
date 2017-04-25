@@ -25,6 +25,8 @@
             -webkit-border-radius: 2px;
             -moz-border-radius: 2px;
             margin-right: 10px;
+            width: 30px;
+            height: 20px;
 
 
 
@@ -41,6 +43,8 @@
             padding-left: 3px;
             padding-right: 3px;
             padding-top: 3px;
+            width: 30px;
+            height: 20px;
 
         }
         .menu {
@@ -121,7 +125,7 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA63OGbYe58dTZPiyDuEO-xquTASBBAlts&callback=initMap&libraries=drawing">
 </script>
 
-<script id="info" type="text/x-handlebars-template">
+<script id="outputform" type="text/x-handlebars-template">
         <div class="category-wrap">
             <h3>Field {{id}}</h3>
             <ul>
@@ -135,6 +139,8 @@
                     </li>
                 {{/each}}
             </ul>
+            <button id="delete">Delete</button>
+            <button id="edit">Edit</button>
         </div>
 
 </script>
@@ -158,9 +164,17 @@
 
 <script id="inputform" type="text/x-handlebars-template">
     <div class="category-wrap">
-
+        <button id="input-ok">OK</button>
+        <button id="input-cancel">Cancel</button>
     </div>
 
+</script>
+
+<script id="editform" type="text/x-handlebars-template">
+    <div class="category-wrap">
+        <button id="edit-ok">OK</button>
+        <button id="edit-cancel">Cancel</button>
+    </div>
 </script>
 
 
