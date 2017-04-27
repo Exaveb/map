@@ -115,7 +115,7 @@ var test_context = {
 };
 
 var map;
-var input = require('./forms/input');
+var input = require('./input');
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},

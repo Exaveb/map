@@ -2,7 +2,7 @@
  * Created by exaveb on 27.04.2017.
  */
 
-var edit = require('./forms/edit');
+var edit = require('./edit');
 
 var  handlebars = require('handlebars');
 
