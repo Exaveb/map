@@ -2,6 +2,7 @@
  * Created by exaveb on 16.04.2017.
  */
 var Handlebars = require('handlebars');
+
 var test_context = {
     id:"001",
     years:[
@@ -114,6 +115,7 @@ var test_context = {
 };
 
 var map;
+var input = require('./input');
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
@@ -136,7 +138,7 @@ function initMap() {
 
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(add_btn);
 
-    google.maps.event.addListener(map,'click',function () {
+    google.maps.event.addListener(map,'click',function (e) {
        document.getElementById('menu').classList.remove('show');
     });
 }
@@ -158,65 +160,12 @@ function add_click() {
 
 
 
+
     google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
-        console.log(polygon);
+
         drawingManager.setMap(null);
+        input.bind(null,polygon,google)();
 
-        var input = document.getElementById('menu');
-        console.log(input);
-        changeTemplate('inputform',null, input);
-        input.classList.add('show');
-
-        document.getElementById('input-cancel').addEventListener('click',function() {
-            polygon.setMap(null);
-            polygon = null;
-            add_btn.style.display = "block";
-            input.classList.remove('show');
-        });
-
-        document.getElementById('input-ok').addEventListener('click',function() {
-            input.classList.remove('show');
-            add_btn.style.display = "block";
-
-
-
-           google.maps.event.addListener(polygon, 'click', function () {
-               changeTemplate('outputform', test_context,document.getElementById('menu'));
-               document.getElementById('menu').classList.add('show');
-               document.getElementById('delete').addEventListener('click',function () {
-                   polygon.setMap(null);
-                   polygon = null;
-                   input.classList.remove('show');
-               });
-
-               document.getElementById('edit').addEventListener('click',function () {
-                   var menu =  document.getElementById('menu');
-                   menu.classList.remove('show');
-                   changeTemplate('editform',null,menu);
-                   menu.classList.add('show');
-
-                   document.getElementById('edit-ok').addEventListener('click',function () {
-                       menu.classList.remove('show');
-                       changeTemplate('outputform',test_context,menu);
-
-                       document.getElementById('edit-cancel').removeEventListener('click');
-                       document.getElementById('edit-ok').removeEventListener('click');
-                   });
-
-                   document.getElementById('edit-cancel').addEventListener('click',function () {
-                       menu.classList.remove('show');
-                       changeTemplate('outputform',test_context,menu);
-
-                       document.getElementById('edit-cancel').removeEventListener('click');
-                       document.getElementById('edit-ok').removeEventListener('click');
-
-                   });
-
-               })
-
-           });
-
-       });
     });
 }
 
