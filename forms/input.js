@@ -4,7 +4,7 @@
 
 var  handlebars = require('handlebars');
 
-var output = require('./output');
+var output = require('./forms/output');
 
 function changeTemplate(template, context, container) {
     var source = document.getElementById(template).innerHTML,

@@ -2,7 +2,7 @@
  * Created by exaveb on 27.04.2017.
  */
 
-
+var edit = require('./forms/edit');
 
 var  handlebars = require('handlebars');
 
@@ -27,7 +27,7 @@ var output = function (polygon) {
     });
 
     document.getElementById('edit').addEventListener('click', function () {
-        var edit = require('./edit');
+
         edit();
 
     });
